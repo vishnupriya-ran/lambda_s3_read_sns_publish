@@ -1,3 +1,14 @@
+import boto3
+import os
+# import openai
+import json
+
+s3_client = boto3.client('s3')
+sns_client = boto3.client('sns')
+
+# Load environment variables
+SNS_TOPIC_ARN = os.environ['SNS_TOPIC_ARN']
+
 def lambda_handler(event, context):
     try:
         # Extract bucket name and file key from the event
@@ -14,7 +25,7 @@ def lambda_handler(event, context):
         # Publish the content to the SNS topic
         sns_client.publish(
             TopicArn=SNS_TOPIC_ARN,
-            Message=content,
+            Message=file_content,
             Subject=f"Content for File: {file_key}"
         )
 
