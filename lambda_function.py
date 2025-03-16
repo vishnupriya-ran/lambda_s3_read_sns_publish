@@ -1,6 +1,5 @@
 import boto3
 import os
-# import openai
 import json
 
 s3_client = boto3.client('s3')
